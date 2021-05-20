@@ -27,17 +27,16 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("Paint");
-        x = x + 20;
-        y = y + 20;
         g.fillRect(x, y, 50, 50);
+        x += 50;
     }
 
-    static class MyKeyListener extends KeyAdapter {
+    class MyKeyListener extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("keyPressed");
+            x += 200;
+            repaint();
         }
 
         @Override
