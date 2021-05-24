@@ -7,7 +7,7 @@ public class Tank {
     private int y;
 
     private Direction direction = Direction.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
     private boolean moving = false;
 
     public Tank(int x, int y, Direction direction) {
