@@ -5,7 +5,7 @@ public class Main {
         System.out.print("Tank War");
         TankFrame frame = new TankFrame();
         while (true){
-            Thread.sleep(500);
+            Thread.sleep(50);
             frame.repaint();
         }
     }
