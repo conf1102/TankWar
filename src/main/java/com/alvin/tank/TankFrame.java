@@ -1,16 +1,20 @@
 package com.alvin.tank;
 
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, Direction.DOWN,this);
-    Bullet bullet = new Bullet(300, 300, Direction.DOWN);
-    private final static int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    Tank myTank = new Tank(200, 200, Direction.DOWN, this);
+    List<Bullet> bulletList = new ArrayList<>();
+    public final static int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
         setVisible(true);
@@ -47,8 +51,14 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("Bullets Number: " + bulletList.size(), 10, 60);
+        g.setColor(c);
         myTank.paint(g);
-        bullet.paint(g);
+        for (int i = 0; i < bulletList.size(); i++) {
+            bulletList.get(i).paint(g);
+        }
     }
 
     class MyKeyListener extends KeyAdapter {
