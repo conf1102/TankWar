@@ -8,6 +8,8 @@ public class Tank {
 
     private Direction direction = Direction.DOWN;
     private static final int SPEED = 5;
+    public static final int WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
     private boolean moving = false;
     private TankFrame tf = null;
 
@@ -60,7 +62,9 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bulletList.add(new Bullet(this.x, this.y, this.direction, this.tf));
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        tf.bulletList.add(new Bullet(bX, bY, this.direction, this.tf));
     }
 
     public Direction getDirection() {
