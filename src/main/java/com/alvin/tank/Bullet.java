@@ -8,7 +8,7 @@ public class Bullet {
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x, y;
     private Direction direction;
-    private boolean live = true;
+    private boolean living = true;
     private TankFrame tf;
 
 
@@ -20,10 +20,10 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if (!live) {
+        if (!living) {
             tf.bulletList.remove(this);
         }
-        switch (direction){
+        switch (direction) {
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
@@ -57,7 +57,21 @@ public class Bullet {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            live = false;
+            living = false;
         }
+    }
+
+    public void collideWith(Tank tank) {
+        Rectangle rectangleBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle rectangleTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+        if(rectangleBullet.intersects(rectangleTank)){
+            tank.die();
+            this.die();
+        }
+
+    }
+
+    private void die() {
+        this.living = false;
     }
 }
