@@ -2,9 +2,14 @@ package com.alvin.tank;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        System.out.print("Tank War");
+
         TankFrame frame = new TankFrame();
-        while (true){
+        //Init Enemy Tank List
+
+        for (int i = 0; i < 5; i++) {
+            frame.enemyTankList.add(new Tank(50 + i * 80, 200, Direction.DOWN, frame));
+        }
+        while (true) {
             Thread.sleep(50);
             frame.repaint();
         }
