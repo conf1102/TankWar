@@ -7,7 +7,6 @@ public class Explode {
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 
     private int x, y;
-    private boolean living = true;
     TankFrame frame = null;
 
     private int setup = 0;
@@ -17,13 +16,13 @@ public class Explode {
         this.y = y;
         this.frame = frame;
 
-        new Audio("audio/explode.wav").play();
+//        new Audio("audio/explode.wav").play();
     }
 
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[setup++], x, y, null);
         if (setup >= ResourceMgr.explodes.length) {
-            setup = 0;
+            frame.explodeList.remove(this);
         }
     }
 }
