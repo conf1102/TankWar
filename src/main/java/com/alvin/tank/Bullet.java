@@ -9,13 +9,15 @@ public class Bullet {
     private int x, y;
     private Direction direction;
     private boolean living = true;
+    private Group group;
     private TankFrame tf;
 
 
-    public Bullet(int x, int y, Direction direction, TankFrame tf) {
+    public Bullet(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -62,9 +64,12 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()){
+            return;
+        }
         Rectangle rectangleBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rectangleTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if(rectangleBullet.intersects(rectangleTank)){
+        if (rectangleBullet.intersects(rectangleTank)) {
             tank.die();
             this.die();
         }
@@ -73,5 +78,13 @@ public class Bullet {
 
     private void die() {
         this.living = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

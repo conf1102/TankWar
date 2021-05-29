@@ -1,6 +1,7 @@
 package com.alvin.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x;
@@ -10,19 +11,22 @@ public class Tank {
     private static final int SPEED = 5;
     public static final int WIDTH = ResourceMgr.tankD.getWidth();
     public static final int HEIGHT = ResourceMgr.tankD.getHeight();
-    private boolean moving = false;
+    private boolean moving = true;
     private boolean living = true;
+    private Group group = Group.BAD;
+    private Random random = new Random();
     private TankFrame tf = null;
 
-    public Tank(int x, int y, Direction direction, TankFrame tf) {
+    public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.group = group;
         this.tf = tf;
     }
 
     public void paint(Graphics g) {
-        if(!living){
+        if (!living) {
             this.tf.enemyTankList.remove(this);
             return;
         }
@@ -65,12 +69,15 @@ public class Tank {
                 break;
 
         }
+        if (random.nextInt(10) > 8) {
+            this.fire();
+        }
     }
 
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bulletList.add(new Bullet(bX, bY, this.direction, this.tf));
+        tf.bulletList.add(new Bullet(bX, bY, this.direction, this.group, this.tf));
     }
 
     public void die() {
@@ -110,5 +117,11 @@ public class Tank {
         this.y = y;
     }
 
+    public Group getGroup() {
+        return group;
+    }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }
