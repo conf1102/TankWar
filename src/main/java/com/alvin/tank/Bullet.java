@@ -64,7 +64,7 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()){
+        if (this.group == tank.getGroup()) {
             return;
         }
         Rectangle rectangleBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
@@ -72,7 +72,7 @@ public class Bullet {
         if (rectangleBullet.intersects(rectangleTank)) {
             tank.die();
             this.die();
-            tf.explodeList.add(new Explode(this.x,this.y,tf));
+            tf.explodeList.add(new Explode(this.x, this.y, tf));
         }
 
     }

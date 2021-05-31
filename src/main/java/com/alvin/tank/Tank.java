@@ -69,9 +69,17 @@ public class Tank {
                 break;
 
         }
-        if (this.group == Group.BAD && random.nextInt(10) > 8) {
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
             this.fire();
         }
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            randomDirection();
+        }
+
+    }
+
+    private void randomDirection() {
+        this.direction = Direction.values()[random.nextInt(4)];
     }
 
     public void fire() {

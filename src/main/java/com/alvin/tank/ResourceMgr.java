@@ -20,14 +20,14 @@ public class ResourceMgr {
     static {
         try {
             tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
-            tankL = ImageUtil.rotateImage(tankU,-90);
-            tankR = ImageUtil.rotateImage(tankU,90);
-            tankD = ImageUtil.rotateImage(tankU,180);
+            tankL = ImageUtil.rotateImage(tankU, -90);
+            tankR = ImageUtil.rotateImage(tankU, 90);
+            tankD = ImageUtil.rotateImage(tankU, 180);
 
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
-            bulletL = ImageUtil.rotateImage(bulletU,-90);
-            bulletR = ImageUtil.rotateImage(bulletU,90);
-            bulletD = ImageUtil.rotateImage(bulletU,180);
+            bulletL = ImageUtil.rotateImage(bulletU, -90);
+            bulletR = ImageUtil.rotateImage(bulletU, 90);
+            bulletD = ImageUtil.rotateImage(bulletU, 180);
 
             for (int i = 0; i < 16; i++) {
                 int imageIndex = i + 1;
