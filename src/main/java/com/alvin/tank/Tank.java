@@ -75,7 +75,23 @@ public class Tank {
         if (this.group == Group.BAD && random.nextInt(100) > 95) {
             randomDirection();
         }
+        boundsCheck();
 
+    }
+
+    private void boundsCheck() {
+        if (this.x < 2) {
+            x = 2;
+        }
+        if (this.y < 28) {
+            y = 28;
+        }
+        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        }
+        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        }
     }
 
     private void randomDirection() {
