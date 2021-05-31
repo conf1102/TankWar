@@ -17,12 +17,19 @@ public class Tank {
     private Random random = new Random();
     private TankFrame tf = null;
 
+    Rectangle rect = new Rectangle();
+
     public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -76,6 +83,8 @@ public class Tank {
             randomDirection();
         }
         boundsCheck();
+        rect.x = this.x;
+        rect.y = this.y;
 
     }
 
