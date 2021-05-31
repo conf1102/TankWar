@@ -16,7 +16,7 @@ public class TankFrame extends Frame {
     List<Bullet> bulletList = new ArrayList<>();
     List<Tank> enemyTankList = new ArrayList<>();
     List<Explode> explodeList = new ArrayList<>();
-    public final static int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    public final static int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {
         setVisible(true);
