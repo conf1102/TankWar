@@ -17,7 +17,7 @@ public class Tank {
     private Random random = new Random();
     private TankFrame tf = null;
 
-    FireStrategy fireStrategy = new FourDirectionFireStrategy();
+    FireStrategy fireStrategy;
 
     Rectangle rect = new Rectangle();
 
@@ -32,6 +32,22 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        if (this.group == Group.GOOD) {
+            String goodTankFS = (String) PropertyMgr.get("goodTankFS");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(goodTankFS).newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            String badTankFS = (String) PropertyMgr.get("badTankFS");
+            try {
+                fireStrategy = (FireStrategy) Class.forName(badTankFS).newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            fireStrategy = new DefaultFireStrategy();
+        }
     }
 
     public void paint(Graphics g) {
