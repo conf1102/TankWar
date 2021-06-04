@@ -17,6 +17,8 @@ public class Tank {
     private Random random = new Random();
     private TankFrame tf = null;
 
+    FireStrategy fireStrategy = new DefaultFireStrategy();
+
     Rectangle rect = new Rectangle();
 
     public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
@@ -108,9 +110,10 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+/*        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bulletList.add(new Bullet(bX, bY, this.direction, this.group, this.tf));
+        tf.bulletList.add(new Bullet(bX, bY, this.direction, this.group, this.tf));*/
+        this.fireStrategy.fire(this);
     }
 
     public void die() {
@@ -156,5 +159,13 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public TankFrame getTf() {
+        return tf;
+    }
+
+    public void setTf(TankFrame tf) {
+        this.tf = tf;
     }
 }
