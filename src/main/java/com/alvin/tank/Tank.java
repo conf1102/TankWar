@@ -17,7 +17,7 @@ public class Tank {
     private Random random = new Random();
     private TankFrame tf = null;
 
-    FireStrategy fireStrategy = new DefaultFireStrategy();
+    FireStrategy fireStrategy = new FourDirectionFireStrategy();
 
     Rectangle rect = new Rectangle();
 
