@@ -35,14 +35,14 @@ public class Tank {
         if (this.group == Group.GOOD) {
             String goodTankFS = (String) PropertyMgr.get("goodTankFS");
             try {
-                fireStrategy = (FireStrategy) Class.forName(goodTankFS).newInstance();
+                fireStrategy = (FireStrategy) Class.forName(goodTankFS).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             String badTankFS = (String) PropertyMgr.get("badTankFS");
             try {
-                fireStrategy = (FireStrategy) Class.forName(badTankFS).newInstance();
+                fireStrategy = (FireStrategy) Class.forName(badTankFS).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
