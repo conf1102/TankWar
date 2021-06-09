@@ -1,6 +1,11 @@
 package com.alvin.tank;
 
 
+import com.alvin.tank.abstractfactory.BaseBullet;
+import com.alvin.tank.abstractfactory.BaseExplode;
+import com.alvin.tank.abstractfactory.GameFactory;
+import com.alvin.tank.abstractfactory.RectFactory;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,9 +18,11 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
-    List<Bullet> bulletList = new ArrayList<>();
-    List<Tank> enemyTankList = new ArrayList<>();
-    List<Explode> explodeList = new ArrayList<>();
+    public List<BaseBullet> bulletList = new ArrayList<>();
+    public List<Tank> enemyTankList = new ArrayList<>();
+    public List<BaseExplode> explodeList = new ArrayList<>();
+    public GameFactory gameFactory = new RectFactory();
+
     public final static int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() {

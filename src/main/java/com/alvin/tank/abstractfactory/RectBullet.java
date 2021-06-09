@@ -1,10 +1,10 @@
-package com.alvin.tank;
+package com.alvin.tank.abstractfactory;
 
-import com.alvin.tank.abstractfactory.BaseBullet;
+import com.alvin.tank.*;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -17,7 +17,7 @@ public class Bullet extends BaseBullet {
     Rectangle rect = new Rectangle();
 
 
-    public Bullet(int x, int y, Direction direction, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -36,20 +36,9 @@ public class Bullet extends BaseBullet {
         if (!living) {
             tf.bulletList.remove(this);
         }
-        switch (direction) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
         move();
 
     }

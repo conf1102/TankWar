@@ -1,9 +1,11 @@
 package com.alvin.tank;
 
+import com.alvin.tank.abstractfactory.BaseTank;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends BaseTank {
     private int x;
     private int y;
 
@@ -19,7 +21,7 @@ public class Tank {
 
     FireStrategy fireStrategy;
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
         this.x = x;
