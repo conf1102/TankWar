@@ -15,18 +15,18 @@ public class Tank {
     private boolean living = true;
     private Group group = Group.BAD;
     private Random random = new Random();
-    private TankFrame tf = null;
+    GameModel gm = null;
 
     FireStrategy fireStrategy;
 
     Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y, Direction direction, Group group, TankFrame tf) {
+    public Tank(int x, int y, Direction direction, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -52,7 +52,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            this.tf.enemyTankList.remove(this);
+            this.gm.enemyTankList.remove(this);
             return;
         }
 
@@ -177,11 +177,4 @@ public class Tank {
         this.group = group;
     }
 
-    public TankFrame getTf() {
-        return tf;
-    }
-
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
-    }
 }
