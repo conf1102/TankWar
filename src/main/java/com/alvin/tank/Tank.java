@@ -1,25 +1,25 @@
 package com.alvin.tank;
 
+import com.alvin.tank.strategy.DefaultFireStrategy;
+import com.alvin.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
-    private int x;
-    private int y;
-
-    private Direction direction = Direction.DOWN;
-    private static final int SPEED = 5;
+public class Tank extends GameObject {
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
+    private static final int SPEED = 5;
+    public GameModel gm = null;
+    FireStrategy fireStrategy;
+    Rectangle rect = new Rectangle();
+    private int x;
+    private int y;
+    private Direction direction = Direction.DOWN;
     private boolean moving = true;
     private boolean living = true;
     private Group group = Group.BAD;
     private Random random = new Random();
-    GameModel gm = null;
-
-    FireStrategy fireStrategy;
-
-    Rectangle rect = new Rectangle();
 
     public Tank(int x, int y, Direction direction, Group group, GameModel gm) {
         this.x = x;
@@ -50,9 +50,10 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            this.gm.enemyTankList.remove(this);
+            this.gm.remove(this);
             return;
         }
 
@@ -136,6 +137,9 @@ public class Tank {
         this.living = false;
     }
 
+    public void stop() {
+        this.moving = false;
+    }
 
     public Direction getDirection() {
         return direction;
@@ -175,6 +179,10 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRect() {
+        return rect;
     }
 
 }

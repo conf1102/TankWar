@@ -1,4 +1,7 @@
-package com.alvin.tank;
+package com.alvin.tank.strategy;
+
+import com.alvin.tank.Bullet;
+import com.alvin.tank.Tank;
 
 public class DefaultFireStrategy implements FireStrategy {
 

@@ -1,4 +1,8 @@
-package com.alvin.tank;
+package com.alvin.tank.strategy;
+
+import com.alvin.tank.Bullet;
+import com.alvin.tank.Direction;
+import com.alvin.tank.Tank;
 
 public class FourDirectionFireStrategy implements FireStrategy{
     @Override

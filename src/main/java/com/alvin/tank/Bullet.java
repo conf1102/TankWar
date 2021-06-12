@@ -2,7 +2,7 @@ package com.alvin.tank;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject {
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -27,12 +27,13 @@ public class Bullet {
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.bulletList.add(this);
+        gm.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gm.bulletList.remove(this);
+            gm.remove(this);
         }
         switch (direction) {
             case LEFT:
@@ -74,18 +75,19 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
+    public boolean collideWith(Tank tank) {
         if (this.group == tank.getGroup()) {
-            return;
+            return false;
         }
         if (rect.intersects(tank.rect)) {
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.explodeList.add(new Explode(eX, eY, gm));
+            gm.add(new Explode(eX, eY, gm));
+            return true;
         }
-
+        return false;
     }
 
     private void die() {
