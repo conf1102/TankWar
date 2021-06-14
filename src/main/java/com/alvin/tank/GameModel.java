@@ -7,19 +7,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
+    private static final GameModel INSTANCE = new GameModel();
 
-    Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
+    static {
+        INSTANCE.init();
+    }
+    Tank myTank;
 
     private List<GameObject> objectList = new ArrayList<>();
     ColliderChain chain = new ColliderChain();
 
-    public GameModel() {
+    public static GameModel getInstance() {
+        return INSTANCE;
+    }
+
+    private GameModel() {
+
+    }
+
+    private void init(){
+        myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD);
         int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
 
         //Init Enemy Tank List
         for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i * 80, 200, Direction.DOWN, Group.BAD, this));
+            new Tank(50 + i * 80, 200, Direction.DOWN, Group.BAD);
         }
+        add(new Wall(150, 150, 200, 50));
+        add(new Wall(550, 150, 200, 50));
+        add(new Wall(300, 300, 200, 50));
+        add(new Wall(550, 300, 200, 50));
     }
 
     public void add(GameObject gameObject) {
@@ -47,7 +64,7 @@ public class GameModel {
             for (int j = i + 1; j < objectList.size(); j++) {
                 GameObject o1 = objectList.get(i);
                 GameObject o2 = objectList.get(j);
-                chain.collide(o1,o2);
+                chain.collide(o1, o2);
             }
         }
 

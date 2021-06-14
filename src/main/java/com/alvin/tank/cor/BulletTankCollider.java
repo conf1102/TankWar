@@ -1,16 +1,22 @@
 package com.alvin.tank.cor;
 
-import com.alvin.tank.Bullet;
-import com.alvin.tank.GameObject;
-import com.alvin.tank.Tank;
+import com.alvin.tank.*;
 
 public class BulletTankCollider implements Collider {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {
-            Bullet b = (Bullet) o1;
-            Tank t = (Tank) o2;
-            if (b.collideWith(t)) {
+            Bullet bullet = (Bullet) o1;
+            Tank tank = (Tank) o2;
+            if (bullet.getGroup() == tank.getGroup()) {
+                return true;
+            }
+            if (bullet.getRectangle().intersects(tank.getRectangle())) {
+                tank.die();
+                bullet.die();
+                int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+                int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+                new Explode(eX, eY);
                 return false;
             }
         } else if (o1 instanceof Tank && o2 instanceof Bullet) {

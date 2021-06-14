@@ -10,28 +10,27 @@ public class Tank extends GameObject {
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private static final int SPEED = 5;
-    public GameModel gm = null;
     FireStrategy fireStrategy;
-    Rectangle rect = new Rectangle();
+    private Rectangle rectangle = new Rectangle();
     private int x;
     private int y;
+    private int prevX, prevY;
     private Direction direction = Direction.DOWN;
     private boolean moving = true;
     private boolean living = true;
     private Group group = Group.BAD;
     private Random random = new Random();
 
-    public Tank(int x, int y, Direction direction, Group group, GameModel gm) {
+    public Tank(int x, int y, Direction direction, Group group) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.group = group;
-        this.gm = gm;
 
-        rect.x = this.x;
-        rect.y = this.y;
-        rect.width = WIDTH;
-        rect.height = HEIGHT;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
         if (this.group == Group.GOOD) {
             String goodTankFS = (String) PropertyMgr.get("goodTankFS");
             try {
@@ -48,12 +47,13 @@ public class Tank extends GameObject {
             }
             fireStrategy = new DefaultFireStrategy();
         }
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            this.gm.remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
 
@@ -76,7 +76,14 @@ public class Tank extends GameObject {
 
     }
 
+    public void back() {
+        x = prevX;
+        y = prevY;
+    }
+
     private void move() {
+        prevX = x;
+        prevY = y;
         if (!moving) {
             return;
         }
@@ -102,8 +109,8 @@ public class Tank extends GameObject {
             randomDirection();
         }
         boundsCheck();
-        rect.x = this.x;
-        rect.y = this.y;
+        rectangle.x = this.x;
+        rectangle.y = this.y;
 
     }
 
@@ -181,8 +188,24 @@ public class Tank extends GameObject {
         this.group = group;
     }
 
-    public Rectangle getRect() {
-        return rect;
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public int getPrevX() {
+        return prevX;
+    }
+
+    public void setPrevX(int prevX) {
+        this.prevX = prevX;
+    }
+
+    public int getPrevY() {
+        return prevY;
+    }
+
+    public void setPrevY(int prevY) {
+        this.prevY = prevY;
     }
 
 }

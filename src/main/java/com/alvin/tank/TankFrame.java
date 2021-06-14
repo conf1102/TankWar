@@ -14,7 +14,7 @@ public class TankFrame extends Frame {
 
 
     public final static int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
-    GameModel gm = new GameModel();
+    GameModel gm = GameModel.getInstance();
 
     public TankFrame() {
         setVisible(true);
