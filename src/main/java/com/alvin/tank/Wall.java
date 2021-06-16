@@ -10,8 +10,8 @@ public class Wall extends GameObject {
     private Rectangle rectangle;
 
     public Wall(int x, int y, int weight, int height) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
         this.weight = weight;
         this.height = height;
         this.rectangle = new Rectangle(x, y, weight, height);
@@ -21,8 +21,18 @@ public class Wall extends GameObject {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.GRAY);
-        g.fillRect(x, y, weight, height);
+        g.fillRect(this.getX(), this.getY(), weight, height);
         g.setColor(c);
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     public Rectangle getRectangle() {

@@ -6,7 +6,6 @@ public class Bullet extends GameObject {
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
-    private int x, y;
     private Direction direction;
     private boolean living = true;
     private Group group;
@@ -14,13 +13,13 @@ public class Bullet extends GameObject {
 
 
     public Bullet(int x, int y, Direction direction, Group group) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
         this.direction = direction;
         this.group = group;
 
-        rectangle.x = this.x;
-        rectangle.y = this.y;
+        rectangle.x = getX();
+        rectangle.y = getY();
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
@@ -34,40 +33,50 @@ public class Bullet extends GameObject {
         }
         switch (direction) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                g.drawImage(ResourceMgr.bulletL, getX(), getY(), null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                g.drawImage(ResourceMgr.bulletU, getX(), getY(), null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                g.drawImage(ResourceMgr.bulletR, getX(), getY(), null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                g.drawImage(ResourceMgr.bulletD, getX(), getY(), null);
                 break;
         }
         move();
 
     }
 
+    @Override
+    public int getWeight() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     private void move() {
         switch (direction) {
             case LEFT:
-                x -= SPEED;
+                this.setX(this.getX() - SPEED);
                 break;
             case UP:
-                y -= SPEED;
+                this.setY(this.getY() - SPEED);
                 break;
             case RIGHT:
-                x += SPEED;
+                this.setX(this.getX() + SPEED);
                 break;
             case DOWN:
-                y += SPEED;
+                this.setY(this.getY() + SPEED);
                 break;
         }
-        rectangle.x = this.x;
-        rectangle.y = this.y;
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+        rectangle.x = getX();
+        rectangle.y = getY();
+        if (getX() < 0 || getY() < 0 || getX() > TankFrame.GAME_WIDTH || getY() > TankFrame.GAME_HEIGHT) {
             living = false;
         }
     }

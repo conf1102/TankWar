@@ -12,8 +12,6 @@ public class Tank extends GameObject {
     private static final int SPEED = 5;
     FireStrategy fireStrategy;
     private Rectangle rectangle = new Rectangle();
-    private int x;
-    private int y;
     private int prevX, prevY;
     private Direction direction = Direction.DOWN;
     private boolean moving = true;
@@ -22,13 +20,13 @@ public class Tank extends GameObject {
     private Random random = new Random();
 
     public Tank(int x, int y, Direction direction, Group group) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
         this.direction = direction;
         this.group = group;
 
-        rectangle.x = this.x;
-        rectangle.y = this.y;
+        rectangle.x = this.getX();
+        rectangle.y = this.getY();
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
         if (this.group == Group.GOOD) {
@@ -59,16 +57,16 @@ public class Tank extends GameObject {
 
         switch (direction) {
             case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, this.getX(), this.getY(), null);
                 break;
             case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, this.getX(), this.getY(), null);
                 break;
             case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, this.getX(), this.getY(), null);
                 break;
             case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, this.getX(), this.getY(), null);
                 break;
         }
 
@@ -76,29 +74,39 @@ public class Tank extends GameObject {
 
     }
 
+    @Override
+    public int getWeight() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     public void back() {
-        x = prevX;
-        y = prevY;
+        this.setX(prevX);
+        this.setY(prevY);
     }
 
     private void move() {
-        prevX = x;
-        prevY = y;
+        prevX = this.getX();
+        prevY = this.getY();
         if (!moving) {
             return;
         }
         switch (direction) {
             case LEFT:
-                x -= SPEED;
+                this.setX(this.getX() - SPEED);
                 break;
             case UP:
-                y -= SPEED;
+                this.setY(this.getY() - SPEED);
                 break;
             case RIGHT:
-                x += SPEED;
+                this.setX(this.getX() + SPEED);
                 break;
             case DOWN:
-                y += SPEED;
+                this.setY(this.getY() + SPEED);
                 break;
 
         }
@@ -109,23 +117,23 @@ public class Tank extends GameObject {
             randomDirection();
         }
         boundsCheck();
-        rectangle.x = this.x;
-        rectangle.y = this.y;
+        rectangle.x = this.getX();
+        rectangle.y = this.getY();
 
     }
 
     private void boundsCheck() {
-        if (this.x < 2) {
-            x = 2;
+        if (this.getX() < 2) {
+            this.setX(2);
         }
-        if (this.y < 28) {
-            y = 28;
+        if (this.getY() < 28) {
+            this.setY(28);
         }
-        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        if (this.getX() > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
+            this.setX(TankFrame.GAME_WIDTH - Tank.WIDTH - 2);
         }
-        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        if (this.getY() > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
+            this.setY(TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2);
         }
     }
 
@@ -164,21 +172,6 @@ public class Tank extends GameObject {
         this.moving = moving;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public Group getGroup() {
         return group;
